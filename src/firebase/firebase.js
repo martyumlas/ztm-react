@@ -16,7 +16,6 @@ const app = initializeApp(config)
 export const db = getFirestore()
 export const auth = getAuth()
 
-export let currentUser;
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({prompt: 'select_account'})
 
@@ -39,6 +38,7 @@ export const signOutWithGoogle = async() => {
     }
 }
 
+//saving user profile in firestore
 export const createUserProfileDocument = async(userAuth, additionalData) => {
 
     if(!userAuth) return;
