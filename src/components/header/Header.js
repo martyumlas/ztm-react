@@ -1,10 +1,9 @@
 import './Header.scss'
 import { Link } from 'react-router-dom'
 import { ReactComponent as Logo} from '../../assets/crown.svg'
-import CustomButton from '../custom-button/CustomButton'
 import { signOutWithGoogle } from '../../firebase/firebase'
 
-const Header = () => {
+const Header = ({currentUser}) => {
     return (
         <div className='header'>
            <Link to='/'>
@@ -17,10 +16,12 @@ const Header = () => {
                <Link className='option' to='contact'>
                    CONTACT
                </Link>
-               <Link className='option' to='signin'>
-                   SIGN IN
-               </Link>
-               <CustomButton onClick={signOutWithGoogle}>LOGOUT</CustomButton>
+              {
+                  currentUser ? 
+                  <div className='option' onClick={signOutWithGoogle}>SIGN OUT</div>
+                  :
+                  <Link className='option' to='signin'>SIGN IN</Link>
+              }
            </div>
         </div>
     )
