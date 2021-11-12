@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, doc, getDoc, setDoc} from "firebase/firestore";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut} from "firebase/auth";
 
 const config = {
@@ -38,5 +38,33 @@ export const signOutWithGoogle = async() => {
         console.log(error)
     }
 }
+
+export const createUserProfileDocument = async(userAuth, additionalData) => {
+
+    if(!userAuth) return;
+
+    const docRef = doc(db, 'users', userAuth.uid)
+    const docSnap = await getDoc(docRef)
+
+    if(!docSnap.exists()) {
+        const {displayName, email} = userAuth;
+        const createdAt = new Date()
+
+        try {
+            await setDoc(docRef, {
+                displayName,
+                email,
+                createdAt,
+                ...additionalData
+            })
+        } catch (error) {
+            console.log(error.message)
+        }
+
+    }
+
+    return docRef;
+} 
+
 
 export default app
