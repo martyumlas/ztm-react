@@ -15,7 +15,6 @@ class App extends Component {
     super();
     this.state = {
       currentUser: null,
-      test: null
     }
   }
 
