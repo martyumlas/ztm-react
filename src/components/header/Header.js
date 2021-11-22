@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ReactComponent as Logo} from '../../assets/crown.svg'
 import { signOutWithGoogle } from '../../firebase/firebase'
 import {connect} from 'react-redux'
+import CartIcon from '../cart-icon/CartIcon'
 
 const Header = ({currentUser}) => {
     return (
@@ -19,10 +20,12 @@ const Header = ({currentUser}) => {
                </Link>
               {
                  currentUser ? 
-                  <div className='option' onClick={signOutWithGoogle}>SIGN OUT</div>
+                  (<div className='option' onClick={signOutWithGoogle}>SIGN OUT</div>)
                   :
-                  <Link className='option' to='signin'>SIGN IN</Link>
+                  (<Link className='option' to='signin'>SIGN IN</Link>)
               }
+
+              <CartIcon />
            </div>
         </div>
     )
