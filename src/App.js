@@ -10,6 +10,7 @@ import {doc, onSnapshot} from 'firebase/firestore'
 import { connect } from 'react-redux'
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selector';
+import Checkout from './pages/checkout/Checkout';
 
 
 class App extends Component {
@@ -43,7 +44,8 @@ class App extends Component {
         <Header />
           <Routes>
             <Route path='/' element={<Homepage/>}/>
-            <Route path='shop' element={<Shop/>}/>
+            <Route path='shop' element={<Shop/>}/>            
+            <Route path='checkout' element={<Checkout />} />
             <Route exact path='signin' element={this.props.currentUser ? <Navigate to='/' /> : <Auth/>}/>
           </Routes>
       </Fragment>
