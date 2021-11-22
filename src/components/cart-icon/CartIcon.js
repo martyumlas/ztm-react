@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { toggleCartHidden } from '../../redux/cart/cart.actions'
 import { selectCartItemsCount } from '../../redux/cart/cart.selector'
 
-const CartIcon = ({toggleCartHidden, itemCount, selectCartItemsCount}) => {
+const CartIcon = ({toggleCartHidden, itemCount}) => {
     return (
         <div className='cart-icon' onClick={toggleCartHidden}>
             <ShoppingIcon className='shopping-icon'/>
