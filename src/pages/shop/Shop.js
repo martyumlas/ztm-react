@@ -1,10 +1,13 @@
-import CollectionsOverview from "../../components/collections-overview/CollectionsOverview"
+import { Routes, Route} from "react-router"
+import Collection from "../collection/Collection"
 
 const Shop = () => {
-
+    
     return (
         <div className='shop-page'>
-            <CollectionsOverview />
+            <Routes>
+                <Route path=':collectionId' element={<Collection />}/>
+            </Routes>
         </div>
     )
 }
