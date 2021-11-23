@@ -9,9 +9,11 @@ const Shop = () => {
     return (
         <div className='shop-page'>
             {match && <CollectionsOverview />}
-            <Routes>
-                <Route path=':collectionId' element={<Collection />}/>
-            </Routes>
+            {!match && 
+                <Routes>
+                    <Route path=':collectionId' element={<Collection />}/>
+                </Routes>
+            }
         </div>
     )
 }
