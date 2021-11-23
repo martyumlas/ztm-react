@@ -4,8 +4,9 @@ import { connect } from 'react-redux'
 import CartItem from '../cart-item/CartItem'
 import { selectCartItems } from '../../redux/cart/cart.selector'
 import { useNavigate } from 'react-router'
+import { toggleCartHidden } from '../../redux/cart/cart.actions'
 
-const CartDropdown = ({cartItems}) => {
+const CartDropdown = ({cartItems, dispatch}) => {
 
     const navigate = useNavigate()
 
@@ -26,7 +27,10 @@ const CartDropdown = ({cartItems}) => {
                   
                 } 
             </div>
-            <CustomButton onClick={() => navigate('/checkout')}>GO TO CHECKOUT</CustomButton>
+            <CustomButton onClick={() => {
+                navigate('/checkout')
+                dispatch(toggleCartHidden())
+            }}>GO TO CHECKOUT</CustomButton>
         </div>
     )
 }
