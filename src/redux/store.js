@@ -1,9 +1,12 @@
 import rootReducer from './root-reducer'
 import {applyMiddleware, compose, createStore} from 'redux'
 import logger from 'redux-logger'
+import { persistStore } from 'redux-persist'
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const middlewares = [logger, ]
 
+export const store = createStore(rootReducer, composeEnhancers( applyMiddleware(...middlewares)))
 
-const store = createStore(rootReducer, applyMiddleware(logger))
+export const persistor = persistStore(store)
 
-export default store
