@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, doc, getDoc, setDoc} from "firebase/firestore";
+import { getFirestore, doc, getDoc, setDoc, collection, writeBatch} from "firebase/firestore";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut} from "firebase/auth";
 
 const config = {
@@ -65,6 +65,22 @@ export const createUserProfileDocument = async(userAuth, additionalData) => {
 
     return docRef;
 } 
+
+
+//exporting shop data to firebase
+
+export const addCollectionAndDocuments = async(collectionKey, objectsToAdd) => {
+
+    const batch = writeBatch(db);
+
+    objectsToAdd.forEach((element) => {
+        const docRef = doc(collection(db, collectionKey))
+        batch.set(docRef, element)
+    });
+
+    return await batch.commit()
+}
+
 
 
 export default app
