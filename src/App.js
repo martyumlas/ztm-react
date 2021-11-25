@@ -11,7 +11,6 @@ import { connect } from 'react-redux'
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selector';
 import Checkout from './pages/checkout/Checkout';
-import CollectionsOverview from './components/collections-overview/CollectionsOverview';
 
 
 class App extends Component {
@@ -22,7 +21,9 @@ class App extends Component {
     this.unSubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if(userAuth) {        
         await createUserProfileDocument(userAuth)
-        onSnapshot(doc(db, "users", userAuth.uid), (doc) => {
+
+        const userRef = doc(db, "users", userAuth.uid)
+        onSnapshot(userRef, (doc) => {
           this.props.setCurrentUser({
               id: doc.id,
               ...doc.data()
@@ -44,8 +45,7 @@ class App extends Component {
       <Fragment>
         <Header />
           <Routes>
-            <Route path='/' element={<Homepage/>}/>    
-            <Route path='/shop' element={<CollectionsOverview/>}/>    
+            <Route path='/' element={<Homepage/>}/>      
             <Route path='shop/*' element={<Shop/>}/>        
             <Route path='checkout' element={<Checkout />} />
             <Route exact path='signin' element={this.props.currentUser ? <Navigate to='/' /> : <Auth/>}/>
