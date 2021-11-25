@@ -4,20 +4,20 @@ import { selectCollection } from '../../redux/shop/shop.selector'
 import { useSelector } from 'react-redux'
 import CollectionItem from '../../components/collection-item/CollectionItem'
 
-const Collection = ({isLoading}) => {
+const Collection = () => {
 
     let params = useParams()
 
     const collection = useSelector(selectCollection(params.collectionId))
 
-    return (
+    const {title, items} = collection
 
-        
+    return (
         <div className='collection-page'>
-            <h1>{!isLoading && collection && collection.title}</h1>       
+            <h1>{title}</h1>       
             <div className="items">
                 {
-                  !isLoading && collection &&  collection.items.map(item => <CollectionItem item={item} key={item.id}/>)
+                    items.map(item => <CollectionItem item={item} key={item.id}/>)
                 }    
             </div>     
         </div>
