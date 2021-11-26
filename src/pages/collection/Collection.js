@@ -10,12 +10,14 @@ const Collection = () => {
 
     const collection = useSelector(selectCollection(params.collectionId))
 
+    const {title, items} = collection
+
     return (
         <div className='collection-page'>
-            <h1>{collection && collection.title}</h1>       
+            <h1>{title}</h1>       
             <div className="items">
                 {
-                  collection &&  collection.items.map(item => <CollectionItem item={item} key={item.id}/>)
+                    items.map(item => <CollectionItem item={item} key={item.id}/>)
                 }    
             </div>     
         </div>
