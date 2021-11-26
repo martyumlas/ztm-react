@@ -1,37 +1,30 @@
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import { Routes, Route} from "react-router-dom"
 import CollectionsOverview from "../../components/collections-overview/CollectionsOverview"
 import Collection from "../collection/Collection"
-import { convertCollectionSnapShotToMap, db } from "../../firebase/firebase"
-import { collection, onSnapshot } from "@firebase/firestore"
-import { updateCollections } from "../../redux/shop/shop.actions"
+import { fetchCollectionsStartAsync } from "../../redux/shop/shop.actions"
 import WithSpinner from "../../components/with-spinner/WithSpinner"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { selectIsFetching } from "../../redux/shop/shop.selector"
 
 const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview)
 const CollectionPageWithSpinner = WithSpinner(Collection)
 
 const Shop = () =>  {
     
-    const [loading, setLoading] = useState(true)
+    const isFetching = useSelector(selectIsFetching)
+
     const dispatch = useDispatch()
 
     useEffect(() => {
-        const collectionRef = collection(db, 'collections')
-      
-        onSnapshot(collectionRef, (snapShot) => {
-            const collectionMap =  convertCollectionSnapShotToMap(snapShot)
-            dispatch(updateCollections(collectionMap))
-            setLoading(false)
-        })
+        dispatch(fetchCollectionsStartAsync())
     }, [dispatch])
 
- 
     return (
         <div className='shop-page'>
             <Routes>
-                <Route path='/' element={<CollectionsOverviewWithSpinner  isLoading={loading} />} />
-                <Route path=':collectionId' element={<CollectionPageWithSpinner isLoading={loading} />}/>
+                <Route path='/' element={<CollectionsOverviewWithSpinner  isLoading={isFetching} />} />
+                <Route path=':collectionId' element={<CollectionPageWithSpinner  isLoading={isFetching} />}/>
             </Routes>
         </div>
     )
