@@ -16,13 +16,13 @@ const app = initializeApp(config)
 export const db = getFirestore()
 export const auth = getAuth()
 
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({prompt: 'select_account'})
+export const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({prompt: 'select_account'})
 
 
 export const signInWithGoogle = async() => {
     try {
-        await signInWithPopup(auth, provider)
+        await signInWithPopup(auth, googleProvider)
     } catch (error) {
         console.log(error.message)
     }   
