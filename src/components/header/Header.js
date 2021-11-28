@@ -1,5 +1,4 @@
 import { ReactComponent as Logo} from '../../assets/crown.svg'
-import { signOutWithGoogle } from '../../firebase/firebase'
 import {connect} from 'react-redux'
 import CartIcon from '../cart-icon/CartIcon'
 import CartDropdown from '../cart-dropdown/CartDropdown'
